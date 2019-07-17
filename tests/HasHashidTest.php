@@ -26,4 +26,19 @@ class HasHashidTest extends TestCase
 			$decoded
 		);
 	}
+
+	/**
+	 * @test
+	 */
+	public function it_can_find_models_by_hashid()
+	{
+		$item = Item::create();
+		$hashid = Hashids::connection($item->getHashidsConnection())->encode(
+			$item->getKey()
+		);
+
+		$found = Item::findByHashid($hashid);
+
+		$this->assertEquals($item->id, $found->id);
+	}
 }
