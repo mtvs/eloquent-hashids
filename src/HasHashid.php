@@ -24,15 +24,29 @@ Trait HasHashid
 	 */
 	public function scopeFindByHashid($query, $hashid)
 	{
-		$id = @Hashids::connection($this->getHashidsConnection())
+		$id = static::hashidToId($hashid);
+
+		return $query->find($id);
+	}
+
+	/**
+	 * Decode the hashid to the id
+	 *
+	 * @param string $hashid
+	 * @return int
+	 *
+	 * @throws InvalidArgumentException
+	 */
+	public static function hashidToId($hashid)
+	{
+		$id = @Hashids::connection((new static)->getHashidsConnection())
 			->decode($hashid)[0];
 
 		if (! $id) {
 			throw new InvalidArgumentException("Invalid hashid.");
-			
 		}
 
-		return $query->find($id);
+		return $id;
 	}
 
 	public function getHashidsConnection()
