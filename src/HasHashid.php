@@ -4,6 +4,7 @@ namespace Mtvs\EloquentHashids;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use InvalidArgumentException;
 use Vinkla\Hashids\Facades\Hashids;
 
@@ -27,6 +28,22 @@ Trait HasHashid
 		$id = static::hashidToId($hashid);
 
 		return $query->find($id);
+	}
+
+	/**
+	 * Find a model by its hashid or fail when not found
+	 *
+	 * @param Builder $query
+	 * @param string $hashid
+	 * @return Model
+	 *
+	 * @throws ModelNotFoundException
+	 */
+	public function scopeFindByHashidOrFail($query, $hashid)
+	{
+		$id = static::hashidToId($hashid);
+
+		return $query->findOrFail($id);
 	}
 
 	/**
