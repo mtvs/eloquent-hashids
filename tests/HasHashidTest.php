@@ -63,4 +63,19 @@ class HasHashidTest extends TestCase
 
 		Item::findByHashidOrFail($hashid);
 	}
+
+	/**
+	 * @test
+	 */
+	public function it_can_decode_a_hashid_to_the_id()
+	{
+		$item = Item::create();
+		$hashid = Hashids::connection($item->getHashidsConnection())->encode(
+			$item->getKey()
+		);
+
+		$id = Item::hashidToId($hashid);
+
+		$this->assertEquals($item->id, $id);
+	}
 }
