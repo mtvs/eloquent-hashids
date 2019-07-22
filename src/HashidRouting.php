@@ -11,4 +11,20 @@ trait HashidRouting
 	{
 		return $this->findByHashid($value);
 	}
+
+	/**
+	 * @see parent
+	 */
+	public function getRouteKey()
+	{
+		return $this->hashid();
+	}
+
+	/**
+	 * @see parent
+	 */
+	public function getRouteKeyName()
+	{
+		return null;
+	}
 }

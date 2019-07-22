@@ -10,7 +10,7 @@ class HashidRoutingTest extends TestCase
 	/**
 	 * @test
 	 */
-	public function it_resolves_hashids_as_route_bindings()
+	public function it_resolves_the_hashid_as_the_route_binding()
 	{
 		$item = Item::create();
 		$hashid = Hashids::connection($item->getHashidsConnection())
@@ -20,5 +20,19 @@ class HashidRoutingTest extends TestCase
 
 		$this->assertNotNull($resolved);
 		$this->assertEquals($item->id, $resolved->id);
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_returns_the_hashid_as_the_route_keys()
+	{
+		$item = Item::create();
+		$hashid = Hashids::connection($item->getHashidsConnection())
+			->encode($item->id);
+
+		$routeKey = $item->getRouteKey();
+		
+		$this->assertEquals($hashid, $routeKey);
 	}
 }
