@@ -10,40 +10,15 @@ use Vinkla\Hashids\Facades\Hashids;
 
 Trait HasHashid 
 {
+	public static function bootHasHashid()
+	{
+		static::addGlobalScope(new HashidScope);
+	}
+
 	public function hashid()
 	{
 		return Hashids::connection($this->getHashidsConnection())
 			->encode($this->getKey());
-	}
-
-	/**
-	 * Find a model by its hashid
-	 *
-	 * @param Builder $query
-	 * @param string $hashid
-	 * @return Model|null
-	 */
-	public function scopeFindByHashid($query, $hashid)
-	{
-		$id = static::hashidToId($hashid);
-
-		return $query->find($id);
-	}
-
-	/**
-	 * Find a model by its hashid or fail when not found
-	 *
-	 * @param Builder $query
-	 * @param string $hashid
-	 * @return Model
-	 *
-	 * @throws ModelNotFoundException
-	 */
-	public function scopeFindByHashidOrFail($query, $hashid)
-	{
-		$id = static::hashidToId($hashid);
-
-		return $query->findOrFail($id);
 	}
 
 	/**
@@ -54,9 +29,9 @@ Trait HasHashid
 	 *
 	 * @throws InvalidArgumentException
 	 */
-	public static function hashidToId($hashid)
+	public function hashidToId($hashid)
 	{
-		$id = @Hashids::connection((new static)->getHashidsConnection())
+		$id = @Hashids::connection($this->getHashidsConnection())
 			->decode($hashid)[0];
 
 		if (! $id) {
