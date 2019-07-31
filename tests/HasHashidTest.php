@@ -46,6 +46,18 @@ class HasHashidTest extends TestCase
 	/**
 	 * @test
 	 */
+	public function it_returns_null_when_cannot_find_a_model_with_a_hashid()
+	{
+		$hashid = Hashids::encode(1);
+
+		$found = Item::findByHashid($hashid);
+
+		$this->assertNull($found);
+	}
+
+	/**
+	 * @test
+	 */
 	public function it_can_find_a_model_by_its_hashid_or_fail()
 	{
 		$item = Item::create();
@@ -74,7 +86,7 @@ class HasHashidTest extends TestCase
 			$item->getKey()
 		);
 
-		$id = Item::hashidToId($hashid);
+		$id = (new Item)->hashidToId($hashid);
 
 		$this->assertEquals($item->id, $id);
 	}
