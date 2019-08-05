@@ -27,5 +27,8 @@
         "psr-4": {
             "Mtvs\\EloquentHashids\\Tests\\": "tests/"
         }
+    },
+    "scripts": {
+        "test": "phpunit"
     }
 }
