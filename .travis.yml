@@ -1,0 +1,20 @@
+language: php
+
+php:
+ - 7.1
+ - 7.2
+ - 7.3
+
+env: 
+  - ILLUMINATE_VERSION=5.5.* 
+  - ILLUMINATE_VERSION=5.6.* 
+  - ILLUMINATE_VERSION=5.7.*  
+  - ILLUMINATE_VERSION=5.8.*  
+
+before_install:
+  - composer require "illuminate/database:${ILLUMINATE_VERSION}" --no-update
+install:
+ - composer update --no-interaction
+
+script:
+ - composer test
