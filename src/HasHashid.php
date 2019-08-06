@@ -8,6 +8,10 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use InvalidArgumentException;
 use Vinkla\Hashids\Facades\Hashids;
 
+/**
+ * @method Model|null findByHashid($hashid)
+ * @method Model findByHashidOrFail($hashid)
+ */
 Trait HasHashid 
 {
 	public static function bootHasHashid()
