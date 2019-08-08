@@ -1,15 +1,18 @@
-> Using hashids instead of integer ids in urls and list items can be more appealing and clever. For more information visit [hashids.org](https://hashids.org/).
+> Using hashids instead of integer ids in urls and list items can be more
+appealing and clever. For more information visit [hashids.org](https://hashids.org/).
 
 # Eloquent-Hashids [![Build Status](https://travis-ci.org/mtvs/eloquent-hashids.svg?branch=master)](https://travis-ci.org/mtvs/eloquent-hashids)
 
-This adds hashids to eloquent models by encoding/decoding them on the fly rather than persisting them in the database. So no need for another database column and also higher performance by using primary keys in queries.
+This adds hashids to Laravel Eloquent models by encoding/decoding them on the fly
+rather than persisting them in the database. So no need for another database column
+and also higher performance by using primary keys in queries.
 
 Features include:
 
 * Generating hashids for models
-* Quering the database with hashids
+* Resloving hashids to models
 * Ability to customize hashid settings for each model
-* URL-Routing with hashids (optional)
+* Route binding with hashids (optional)
 
 ## Installation
 
@@ -21,7 +24,8 @@ $ composer require mtvs/eloquent-hashids
 
 ## Setup
 
-Base features are provided by using `HasHashid` trait then url-routing can be added by using `HashidRouting`.
+Base features are provided by using `HasHashid` trait then route binding with
+hashids can be added by using `HashidRouting`.
 
 ```php
 
@@ -38,11 +42,14 @@ Class Item extends Model
 
 ### Custom Hashid Settings
 
-It's possible to customize hashids settings for each model by overwriting `getHashidsConnection()`. It must return the name of a connection of [`vinkla/hashids`](https://github.com/vinkla/laravel-hashids) that provides the desired settings.
+It's possible to customize hashids settings for each model by overwriting
+`getHashidsConnection()`. It must return the name of a connection of 
+[`vinkla/hashids`](https://github.com/vinkla/laravel-hashids) that provides
+the desired settings.
 
 ## Usage
 
-### Basic Usage
+### Basics
 
 ```php
 
@@ -65,6 +72,7 @@ $item->getHashidsConnection();
 
 ```
 
-### URL-Routing Usage
+### Route Binding
 
-When `HashidRouting` is used, base `getRouteKey()` and `resolveRouteBinding()` are overwritten to use hashids as route keys.
+When `HashidRouting` trait is used, base `getRouteKey()` and `resolveRouteBinding()`
+are overwritten to use hashids as route keys.
