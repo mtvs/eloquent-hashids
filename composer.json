@@ -1,6 +1,6 @@
 {
     "name": "mtvs/eloquent-hashids",
-    "description": "On-the-fly hashids for eloquent models.",
+    "description": "On-the-fly hashids for Laravel Eloquent models.",
     "type": "library",
     "license": "MIT",
     "authors": [
