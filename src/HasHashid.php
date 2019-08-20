@@ -12,7 +12,7 @@ use Vinkla\Hashids\Facades\Hashids;
  * @method Model|null findByHashid($hashid)
  * @method Model findByHashidOrFail($hashid)
  */
-Trait HasHashid 
+trait HasHashid 
 {
 	public static function bootHasHashid()
 	{
