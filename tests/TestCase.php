@@ -12,9 +12,7 @@ abstract class TestCase extends Orchestra
     {
         parent::setUp();
 
-        $this->loadMigrationsFrom([
-            '--realpath' => realpath(__DIR__.'/database/migrations')
-        ]);
+        $this->loadMigrationsFrom(__DIR__.'/database/migrations');
     }
 
     protected function getPackageProviders($app)
