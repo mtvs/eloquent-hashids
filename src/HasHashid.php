@@ -29,20 +29,12 @@ trait HasHashid
 	 * Decode the hashid to the id
 	 *
 	 * @param string $hashid
-	 * @return int
-	 *
-	 * @throws InvalidArgumentException
+	 * @return int|null
 	 */
 	public function hashidToId($hashid)
 	{
-		$id = @Hashids::connection($this->getHashidsConnection())
+		return @Hashids::connection($this->getHashidsConnection())
 			->decode($hashid)[0];
-
-		if (! $id) {
-			throw new InvalidArgumentException("Invalid hashid.");
-		}
-
-		return $id;
 	}
 
 	public function getHashidsConnection()

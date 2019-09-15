@@ -90,4 +90,17 @@ class HasHashidTest extends TestCase
 
 		$this->assertEquals($item->id, $id);
 	}
+
+	/**
+	 * @test
+	 */
+	public function it_can_handle_invalid_hashids_properly()
+	{
+		$this->assertNull((new Item)->hashidToId('not a hashid'));
+
+		$this->assertNull(Item::findByHashid('not a hashid'));
+
+		$this->expectException(ModelNotFoundException::class);
+		Item::findByHashidOrFail('not a hashid');
+	}
 }
