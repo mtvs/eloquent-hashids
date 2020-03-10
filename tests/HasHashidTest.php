@@ -29,12 +29,14 @@ class HasHashidTest extends TestCase
 	public function it_can_find_models_by_hashid()
 	{
 		$item = Item::create();
+		
 		$hashid = Hashids::connection($item->getHashidsConnection())->encode(
 			$item->getKey()
 		);
 
 		$found = Item::findByHashid($hashid);
 
+		$this->assertNotNull($foud);
 		$this->assertEquals($item->id, $found->id);
 	}
 
