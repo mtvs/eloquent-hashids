@@ -17,15 +17,10 @@ class HasHashidTest extends TestCase
 	public function it_can_generate_the_hashid()
 	{
 		$item = Item::create();
-		$hashId = $item->hashid();
-		$decoded = Hashids::connection(
-			$item->getHashidsConnection()
-		)->decode($hashId)[0];
 
-		$this->assertEquals(
-			$item->getKey(),
-			$decoded
-		);
+		$hashid = Hashids::encode($item->getKey());
+
+		$this->assertEquals($hashid, $item->hashid());
 	}
 
 	/**
