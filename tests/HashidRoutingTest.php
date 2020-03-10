@@ -31,14 +31,13 @@ class HashidRoutingTest extends TestCase
 	/**
 	 * @test
 	 */
-	public function it_returns_the_hashid_as_the_route_keys()
+	public function it_returns_the_hashid_of_a_model_as_its_route_key()
 	{
 		$item = Item::create();
+
 		$hashid = Hashids::connection($item->getHashidsConnection())
 			->encode($item->id);
 
-		$routeKey = $item->getRouteKey();
-		
-		$this->assertEquals($hashid, $routeKey);
+		$this->assertEquals($hashid, $item->getRouteKey());
 	}
 }
