@@ -2,6 +2,8 @@
 
 namespace Mtvs\EloquentHashids\Tests;
 
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 use Mtvs\EloquentHashids\Tests\Models\Item;
 use Vinkla\Hashids\Facades\Hashids;
 
@@ -10,16 +12,20 @@ class HashidRoutingTest extends TestCase
 	/**
 	 * @test
 	 */
-	public function it_resolves_the_hashid_as_the_route_binding()
+	public function it_can_resolve_a_hashid_in_a_linked_route_binding()
 	{
 		$item = Item::create();
+
 		$hashid = Hashids::connection($item->getHashidsConnection())
 			->encode($item->getKey());
 
-		$resolved = (new Item)->resolveRouteBinding($hashid);
+		Route::model('item', Item::class);
 
-		$this->assertNotNull($resolved);
-		$this->assertEquals($item->id, $resolved->id);
+		Route::get('/item/{item}', function ($binding) use ($item) {
+			$this->assertEquals($item->id, $binding->id);
+		})->middleware('bindings');
+
+		$this->get("/item/$hashid");
 	}
 
 	/**
