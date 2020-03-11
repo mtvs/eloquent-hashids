@@ -34,7 +34,7 @@ class HasHashidTest extends TestCase
 
 		$found = Item::findByHashid($hashid);
 
-		$this->assertNotNull($foud);
+		$this->assertNotNull($found);
 		$this->assertEquals($item->id, $found->id);
 	}
 
@@ -56,7 +56,7 @@ class HasHashidTest extends TestCase
 	public function it_can_find_a_model_by_its_hashid_or_fail()
 	{
 		$item = Item::create();
-		
+
 		$hashid = Hashids::encode($item->getKey());
 
 		$found = Item::findByHashidOrFail($hashid);
