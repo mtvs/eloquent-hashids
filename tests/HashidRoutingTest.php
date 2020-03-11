@@ -16,8 +16,7 @@ class HashidRoutingTest extends TestCase
 	{
 		$item = Item::create();
 
-		$hashid = Hashids::connection($item->getHashidsConnection())
-			->encode($item->getKey());
+		$hashid = Hashids::encode($item->getKey());
 
 		Route::model('item', Item::class);
 
@@ -35,8 +34,7 @@ class HashidRoutingTest extends TestCase
 	{
 		$item = Item::create();
 
-		$hashid = Hashids::connection($item->getHashidsConnection())
-			->encode($item->id);
+		$hashid = Hashids::encode($item->id);
 
 		$this->assertEquals($hashid, $item->getRouteKey());
 	}

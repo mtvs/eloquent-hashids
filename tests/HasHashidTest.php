@@ -30,9 +30,7 @@ class HasHashidTest extends TestCase
 	{
 		$item = Item::create();
 		
-		$hashid = Hashids::connection($item->getHashidsConnection())->encode(
-			$item->getKey()
-		);
+		$hashid = Hashids::encode($item->getKey());
 
 		$found = Item::findByHashid($hashid);
 
@@ -58,9 +56,8 @@ class HasHashidTest extends TestCase
 	public function it_can_find_a_model_by_its_hashid_or_fail()
 	{
 		$item = Item::create();
-		$hashid = Hashids::connection($item->getHashidsConnection())->encode(
-			$item->getKey()
-		);
+		
+		$hashid = Hashids::encode($item->getKey());
 
 		$found = Item::findByHashidOrFail($hashid);
 
@@ -79,9 +76,8 @@ class HasHashidTest extends TestCase
 	public function it_can_decode_a_hashid_to_the_id()
 	{
 		$item = Item::create();
-		$hashid = Hashids::connection($item->getHashidsConnection())->encode(
-			$item->getKey()
-		);
+
+		$hashid = Hashids::encode($item->getKey());
 
 		$id = (new Item)->hashidToId($hashid);
 
