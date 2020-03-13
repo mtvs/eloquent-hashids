@@ -10,4 +10,6 @@ class Item extends Model
 {
 	use HasHashid;
 	use HashidRouting;
+
+	protected $guarded = [];
 }

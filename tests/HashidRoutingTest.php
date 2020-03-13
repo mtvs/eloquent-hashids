@@ -14,7 +14,7 @@ class HashidRoutingTest extends TestCase
 	 */
 	public function it_can_resolve_a_hashid_in_a_linked_route_binding()
 	{
-		$item = Item::create();
+		$item = factory(Item::class)->create();
 
 		$hashid = Hashids::encode($item->getKey());
 
@@ -32,7 +32,7 @@ class HashidRoutingTest extends TestCase
 	 */
 	public function it_returns_the_hashid_of_a_model_as_its_route_key()
 	{
-		$item = Item::create();
+		$item = factory(Item::class)->create();
 
 		$hashid = Hashids::encode($item->id);
 

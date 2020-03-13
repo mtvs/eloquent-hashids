@@ -16,7 +16,7 @@ class HasHashidTest extends TestCase
 	 */
 	public function it_can_generate_the_hashid()
 	{
-		$item = Item::create();
+		$item = factory(Item::class)->create();
 
 		$hashid = Hashids::encode($item->getKey());
 
@@ -28,7 +28,7 @@ class HasHashidTest extends TestCase
 	 */
 	public function it_can_find_models_by_hashid()
 	{
-		$item = Item::create();
+		$item = factory(Item::class)->create();
 		
 		$hashid = Hashids::encode($item->getKey());
 
@@ -55,7 +55,7 @@ class HasHashidTest extends TestCase
 	 */
 	public function it_can_find_a_model_by_its_hashid_or_fail()
 	{
-		$item = Item::create();
+		$item = factory(Item::class)->create();
 
 		$hashid = Hashids::encode($item->getKey());
 
@@ -75,7 +75,7 @@ class HasHashidTest extends TestCase
 	 */
 	public function it_can_decode_a_hashid_to_the_id()
 	{
-		$item = Item::create();
+		$item = factory(Item::class)->create();
 
 		$hashid = Hashids::encode($item->getKey());
 
