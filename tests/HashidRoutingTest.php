@@ -30,6 +30,21 @@ class HashidRoutingTest extends TestCase
 	/**
 	 * @test
 	 */
+	public function it_supports_specifying_a_field_in_the_route_binding()
+	{
+		$item = factory(Item::class)->create(['slug' => 'item-1']);
+
+		// TODO: Replace the direct call to the method with a route call
+
+		$resolved = (new Item)->resolveRouteBinding('item-1', 'slug');
+
+		$this->assertNotNull($resolved);
+		$this->assertEquals($item->id, $resolved->id);
+	}
+
+	/**
+	 * @test
+	 */
 	public function it_returns_the_hashid_of_a_model_as_its_route_key()
 	{
 		$item = factory(Item::class)->create();
