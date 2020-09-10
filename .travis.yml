@@ -5,10 +5,17 @@ php:
  - 7.3
  - 7.4
 
-env: 
-  - ILLUMINATE_VERSION=^7.0  
+env:
+  - ILLUMINATE_VERSION=^7.0
+  - ILLUMINATE_VERSION=^8.0
+
+jobs:
+  exclude:
+    - php: 7.2
+      env: ILLUMINATE_VERSION=^8.0
 
 before_install:
+  - if [ $ILLUMINATE_VERSION == "^8.0" ]; then composer require "laravel/legacy-factories" --no-update; fi
   - composer require "illuminate/database:${ILLUMINATE_VERSION}" --no-update
 install:
  - composer update --no-interaction
