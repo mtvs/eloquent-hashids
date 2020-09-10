@@ -1,17 +1,11 @@
 language: php
 
 php:
- - 7.2
  - 7.3
- - 7.4
+ - 7.4  
 
-env: 
-  - ILLUMINATE_VERSION=^7.0  
-
-before_install:
-  - composer require "illuminate/database:${ILLUMINATE_VERSION}" --no-update
 install:
- - composer update --no-interaction
+ - composer install --no-interaction
 
 script:
  - composer test
