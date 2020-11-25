@@ -52,4 +52,9 @@ trait HasHashid
 	{
 		return config('hashids.default');
 	}
+
+	protected function getHashidAttribute()
+        {
+            return $this->hashid();
+        }
 }
