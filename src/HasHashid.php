@@ -21,8 +21,7 @@ trait HasHashid
 
 	public function hashid()
 	{
-		return Hashids::connection($this->getHashidsConnection())
-			->encode($this->getKey());
+		return $this->idToHashid($this->getKey());
 	}
 
 	/**
@@ -35,6 +34,18 @@ trait HasHashid
 	{
 		return @Hashids::connection($this->getHashidsConnection())
 			->decode($hashid)[0];
+	}
+
+	/**
+	 * Encode an id to hashid
+	 *
+	 * @param string $id
+	 * @return string|null
+	 */
+	public function idToHashid($id)
+	{
+		return @Hashids::connection($this->getHashidsConnection())
+			->encode($id);
 	}
 
 	public function getHashidsConnection()
