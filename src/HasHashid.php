@@ -37,7 +37,7 @@ trait HasHashid
 	}
 
 	/**
-	 * Encode an id to hashid
+	 * Encode an id to its equivalent hashid
 	 *
 	 * @param string $id
 	 * @return string|null
@@ -54,7 +54,7 @@ trait HasHashid
 	}
 
 	protected function getHashidAttribute()
-        {
-            return $this->hashid();
-        }
+    {
+        return $this->hashid();
+    }
 }

@@ -56,14 +56,35 @@ the desired settings.
 // Generating the model hashid based on its key
 $item->hashid();
 
-// Accessing the model hashid as a property based on its key
+// Equivalent to the above but with the attribute style
 $item->hashid;
 
-// Add hashid to the serialized model
-return $item->append('hashid')->toJson();
+// Finding a model based on the provided hashid or
+// returning null on failure
+Item::findByHashid($hashid);
 
-// Or add it by default in the model
+// Finding a model based on the provided hashid or
+// throwing a ModelNotFoundException on failure
+Item::findByHashidOrFail($hashid);
 
+// Decoding a hashid to its equivalent id 
+$item->hashidToId($hashid);
+
+// Encoding an id to its equivalent hashid
+$item->idToHashid($id);
+
+// Getting the name of the hashid connection
+$item->getHashidsConnection();
+
+```
+
+### Add the hashid to the serialized model
+
+Set it as default:
+
+```php
+
+use Illuminate\Database\Eloquent\Model;
 use Mtvs\EloquentHashids\HasHashid;
 
 class Item extends Model
@@ -78,24 +99,12 @@ class Item extends Model
     protected $appends = ['hashid'];
 }
 
-// Finding a model based on the provided hashid or
-// returning null on failure
-Item::findByHashid($hashid);
-
-// Finding a model based on the provided hashid or
-// throwing a ModelNotFoundException on failure
-Item::findByHashidOrFail($hashid);
-
-// Decoding a hashid to the integer id 
-$item->hashidToId($hashid);
-
-// Encoding an id to the hashid
-$item->idToHashid($id);
-
-// Getting the name of the hashid connection
-$item->getHashidsConnection();
-
 ```
+
+or specify it specificly:
+
+`return $item->append('hashid')->toJson();`
+
 
 ### Route Binding
 
