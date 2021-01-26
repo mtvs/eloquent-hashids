@@ -14,14 +14,41 @@ class HasHashidTest extends TestCase
 	/**
 	 * @test
 	 */
-	public function it_can_generate_the_hashid()
+	public function it_can_encode_the_model_id_to_its_hashid()
 	{
 		$item = factory(Item::class)->create();
 
 		$hashid = Hashids::encode($item->getKey());
 
 		$this->assertEquals($hashid, $item->hashid());
+		$this->assertEquals($hashid, $item->hashid);
 	}
+
+	/**
+	 * @test
+	 */
+	public function it_can_append_its_hashid_to_its_serialized_version()
+	{
+		$item = factory(Item::class)->create();
+
+		$hashid = Hashids::encode($item->getKey());
+
+		$serialized = json_decode($item->append('hashid')->toJson());
+
+		$this->assertEquals($hashid, $serialized->hashid);
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_can_enceode_an_arbitrary_id_to_its_hashid()
+	{
+		$item = new Item();
+
+		$hashid = Hashids::encode(123);
+
+		$this->assertEquals($hashid, $item->idToHashid(123));
+	}	
 
 	/**
 	 * @test
