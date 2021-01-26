@@ -5,8 +5,13 @@ php:
  - 7.4 
  - 8.0 
 
+env:
+  - ILLUMINATE_VERSION=^8.0   
+
+before_install:
+  - composer require "illuminate/database:${ILLUMINATE_VERSION}" --no-update
 install:
- - composer install --no-interaction
+ - composer update --no-interaction
 
 script:
  - composer test
