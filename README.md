@@ -16,10 +16,18 @@ Features include:
 
 ## Installation
 
+First, get the package with composer:
+
 ```sh
 
 $ composer require mtvs/eloquent-hashids
 
+```
+
+And second, run the following command to publish the config to your Laravel application:
+
+```sh
+$ php artisan vendor:publish
 ```
 
 ## Setup
