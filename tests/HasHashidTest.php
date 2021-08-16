@@ -123,4 +123,45 @@ class HasHashidTest extends TestCase
 		$this->expectException(ModelNotFoundException::class);
 		Item::findByHashidOrFail('not a hashid');
 	}
+
+    /**
+     * @test
+     */
+    public function it_can_find_a_model_by_its_hashid_with_specific_columns()
+    {
+        $item = factory(Item::class)->create();
+
+        $hashid = Hashids::encode($item->getKey());
+
+        $selectedColumns = ['id'];
+
+        $found = Item::findByHashid($hashid, $selectedColumns);
+
+        $this->assertNotNull($found);
+        $this->assertEquals($item->id, $found->id);
+        $this->assertEquals($selectedColumns, array_keys($found->getAttributes()));
+    }
+
+    /**
+     * @test
+     */
+    public function it_can_find_a_model_by_its_hashid_with_specific_columns_or_fail()
+    {
+        $item = factory(Item::class)->create();
+
+        $hashid = Hashids::encode($item->getKey());
+
+        $selectedColumns = ['id'];
+
+        $found = Item::findByHashidOrFail($hashid, $selectedColumns);
+
+        $this->assertEquals($item->id, $found->id);
+        $this->assertEquals($selectedColumns, array_keys($found->getAttributes()));
+
+        $item->delete();
+
+        $this->expectException(ModelNotFoundException::class);
+
+        Item::findByHashidOrFail($hashid);
+    }
 }
