@@ -12,7 +12,7 @@ use Vinkla\Hashids\Facades\Hashids;
  * @method Model|null findByHashid($hashid)
  * @method Model findByHashidOrFail($hashid)
  */
-trait HasHashid 
+trait HasHashid
 {
 	public static function bootHasHashid()
 	{
@@ -39,7 +39,7 @@ trait HasHashid
 	/**
 	 * Encode an id to its equivalent hashid
 	 *
-	 * @param string $id
+	 * @param int|string $id
 	 * @return string|null
 	 */
 	public function idToHashid($id)
