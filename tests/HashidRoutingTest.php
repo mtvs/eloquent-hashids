@@ -14,14 +14,12 @@ class HashidRoutingTest extends TestCase
 	 */
 	public function it_can_resolve_a_hashid_in_a_linked_route_binding()
 	{
-		$item = factory(Item::class)->create();
+		$given = factory(Item::class)->create();
 
-		$hashid = Hashids::encode($item->getKey());
+		$hashid = Hashids::encode($given->getKey());
 
-		Route::model('item', Item::class);
-
-		Route::get('/item/{item}', function ($binding) use ($item) {
-			$this->assertEquals($item->id, $binding->id);
+		Route::get('/item/{item}', function (Item $item) use ($given) {
+			$this->assertEquals($given->id, $item->id);
 		})->middleware('bindings');
 
 		$this->get("/item/$hashid");
