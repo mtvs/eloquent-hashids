@@ -4,6 +4,7 @@ namespace Mtvs\EloquentHashids\Tests;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Routing\Middleware\SubstituteBindings;
 use Mtvs\EloquentHashids\Tests\Models\Item;
 use Vinkla\Hashids\Facades\Hashids;
 
@@ -20,7 +21,7 @@ class HashidRoutingTest extends TestCase
 
 		Route::get('/item/{item}', function (Item $item) use ($given) {
 			$this->assertEquals($given->id, $item->id);
-		})->middleware('bindings');
+		})->middleware(SubstituteBindings::class);
 
 		$this->get("/item/$hashid");
 	}
@@ -34,7 +35,7 @@ class HashidRoutingTest extends TestCase
 
 		Route::get('/item/{item:slug}', function (Item $item) use ($given) {
 			$this->assertEquals($given->id, $item->id);
-		})->middleware('bindings');
+		})->middleware(SubstituteBindings::class);
 
 		$this->get("/item/item-1");
 	}
