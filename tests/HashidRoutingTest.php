@@ -5,6 +5,7 @@ namespace Mtvs\EloquentHashids\Tests;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Routing\Middleware\SubstituteBindings;
+use Mtvs\EloquentHashids\Tests\Models\Child;
 use Mtvs\EloquentHashids\Tests\Models\Item;
 use Vinkla\Hashids\Facades\Hashids;
 
@@ -50,5 +51,35 @@ class HashidRoutingTest extends TestCase
 		$hashid = Hashids::encode($item->id);
 
 		$this->assertEquals($hashid, $item->getRouteKey());
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_can_resolve_hashid_of_child_routing_binding(){
+		$givenChild = factory(Child::class)->create();
+		$givenItem = $givenChild->item;
+
+		Route::get('/items/{item}/children/{child}', function (Item $item, Child $child) use ($givenChild, $givenItem) {
+			$this->assertEquals($givenItem->id, $item->id);
+			$this->assertEquals($givenChild->id, $child->id);
+		})->middleware(SubstituteBindings::class)->scopeBindings();
+
+		$this->get("/items/{$givenItem->getRouteKey()}/children/{$givenChild->getRouteKey()}")->assertOk();
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_can_resolve_specifying_field_of_child_routing_binding(){
+		$givenChild = factory(Child::class)->create();
+		$givenItem = $givenChild->item;
+
+		Route::get('/items/{item}/children/{child:id}', function (Item $item, Child $child) use ($givenChild, $givenItem) {
+			$this->assertEquals($givenItem->id, $item->id);
+			$this->assertEquals($givenChild->id, $child->id);
+		})->middleware(SubstituteBindings::class)->scopeBindings();
+
+		$this->get("/items/{$givenItem->getRouteKey()}/children/{$givenChild->id}")->assertOk();
 	}
 }
