@@ -9,7 +9,7 @@ trait HashidRouting
 	 */
 	public function resolveRouteBinding($value, $field = null)
 	{
-		if ($field) {
+		if ($field && $field !== 'hashid') {
 			return parent::resolveRouteBinding($value, $field);
 		}
 
