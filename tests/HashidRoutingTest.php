@@ -40,6 +40,20 @@ class HashidRoutingTest extends TestCase
 		$this->get("/item/item-1");
 	}
 
+	/** @test */
+	public function it_supports_specifying_the_hashid_in_the_route_binding()
+	{
+		$given = factory(Item::class)->create();
+
+		$hashid = Hashids::encode($given->getKey());
+
+		Route::get('/item/{item:hashid}', function (Item $item) use ($given) {
+			$this->assertEquals($given->id, $item->id);
+		})->middleware(SubstituteBindings::class);
+
+		$this->get("/item/$hashid");
+	}
+
 	/**
 	 * @test
 	 */
