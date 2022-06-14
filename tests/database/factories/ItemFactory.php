@@ -8,3 +8,7 @@ $factory->define(Item::class, function (Generator $faker) {
 		'slug' => $faker->unique()->word()
 	];
 });
+
+$factory->state(Item::class, 'softDeleted', [
+	'deleted_at' => now(),
+]);

@@ -26,6 +26,20 @@ class HashidRoutingTest extends TestCase
 		$this->get("/item/$hashid");
 	}
 
+	/** @test */
+	public function it_can_resolve_softdeletable_route_bindings()
+	{
+		$given = factory(Item::class)->state('softDeleted')->create();
+
+		$hashid = Hashids::encode($given->getKey());
+
+		Route::get('/item/{item}', function (Item $item) use ($given) {
+			$this->assertEquals($given->id, $item->id);
+		})->withTrashed()->middleware(SubstituteBindings::class);
+
+		$this->get("/item/$hashid");
+	}
+
 	/**
 	 * @test
 	 */
