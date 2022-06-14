@@ -7,13 +7,13 @@ trait HashidRouting
 	/**
 	 * @see parent
 	 */
-	public function resolveRouteBinding($value, $field = null)
+	public function resolveRouteBindingQuery($query, $value, $field = null)
 	{
 		if ($field) {
-			return parent::resolveRouteBinding($value, $field);
+			return parent::resolveRouteBindingQuery($query, $value, $field);
 		}
 
-		return $this->findByHashid($value);
+		return $query->byHashid($value);
 	}
 
 	/**

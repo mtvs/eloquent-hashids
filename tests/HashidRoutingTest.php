@@ -13,7 +13,7 @@ class HashidRoutingTest extends TestCase
 	/**
 	 * @test
 	 */
-	public function it_can_resolve_a_hashid_in_a_linked_route_binding()
+	public function it_can_resolve_a_route_binding()
 	{
 		$given = factory(Item::class)->create();
 
@@ -43,7 +43,7 @@ class HashidRoutingTest extends TestCase
 	/**
 	 * @test
 	 */
-	public function it_returns_the_hashid_of_a_model_as_its_route_key()
+	public function it_returns_the_hashid_of_the_model_as_its_route_key()
 	{
 		$item = factory(Item::class)->create();
 
