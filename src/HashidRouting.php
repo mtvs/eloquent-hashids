@@ -2,6 +2,8 @@
 
 namespace Mtvs\EloquentHashids;
 
+use Illuminate\Support\Str;
+
 trait HashidRouting
 {
 	/**
@@ -9,7 +11,14 @@ trait HashidRouting
 	 */
 	public function resolveRouteBindingQuery($query, $value, $field = null)
 	{
-		if ($field && $field !== 'hashid') {
+		if (
+			$field && $field !== 'hashid' &&
+			// Check for qualified columns
+			Str::afterLast($field, '.') !== 'hashid' && 
+			// Avoid risking breaking backward compatibility by modifying 
+			// the getRouteKeyName() to return 'hashid' instead of null
+			Str::afterLast($field, '.') !== ''
+		) {
 			return parent::resolveRouteBindingQuery($query, $value, $field);
 		}
 

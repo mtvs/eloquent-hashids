@@ -27,7 +27,10 @@ class HashidScope implements Scope
 		$builder->macro('byHashid', function (Builder $builder, $hashid) {
 			$model = $builder->getModel();
 
-			return $builder->where($model->getKeyName(), $model->hashidToId($hashid));
+			return $builder->where(
+					$model->qualifyColumn($model->getKeyName()),
+				 	$model->hashidToId($hashid)
+				);
 		});
 	}
 }
