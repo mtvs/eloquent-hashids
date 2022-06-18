@@ -1,7 +1,7 @@
 > Using hashids instead of integer ids in urls and list items can be more
 appealing and clever. For more information visit [hashids.org](https://hashids.org/).
 
-# Eloquent-Hashids [![Build Status](https://travis-ci.org/mtvs/eloquent-hashids.svg?branch=master)](https://travis-ci.org/mtvs/eloquent-hashids)
+# Eloquent-Hashids ![Build Status](https://github.com/mtvs/eloquent-hashids/actions/workflows/build.yml/badge.svg)
 
 This adds hashids to Laravel Eloquent models by encoding/decoding them on the fly
 rather than persisting them in the database. So no need for another database column
