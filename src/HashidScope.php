@@ -16,16 +16,21 @@ class HashidScope implements Scope
 	public function extend(Builder $builder)
 	{
 		$builder->macro('findByHashid', function (Builder $builder, $hashid) {
-			$id = $builder->getModel()->hashidToId($hashid);
-
-			return $builder->find($id);
+			return $builder->byHashid($hashid)->first();
 		});
 
 		$builder->macro('findByHashidOrFail', function (Builder $builder, $hashid)
 		{
-			$id = $builder->getModel()->hashidToId($hashid);
+			return $builder->byHashid($hashid)->firstOrFail();
+		});
 
-			return $builder->findOrFail($id);
+		$builder->macro('byHashid', function (Builder $builder, $hashid) {
+			$model = $builder->getModel();
+
+			return $builder->where(
+					$model->qualifyColumn($model->getKeyName()),
+				 	$model->hashidToId($hashid)
+				);
 		});
 	}
 }
