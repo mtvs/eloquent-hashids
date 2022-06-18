@@ -140,7 +140,7 @@ It supports the Laravel's feature for customizing the key for specific routes.
 
 Route::get('/items/{item:slug}', function (Item $item) {
     return $item;
-})
+});
 
 ```
 
@@ -179,7 +179,24 @@ You'll still be able to specify the hashid for specific routes.
 
 Route::get('/items/{item:hashid}', function (Item $item) {
     return $item;
-})
+});
+
+```
+
+#### Supporting The Other Laravel's Implicit Route Binding Features
+
+When using `HashidRouting` you'll still be able to use softdeletable and child
+route bindings.
+
+```php
+
+Route::get('/items/{item}', function (Item $item) {
+    return $item;
+})->withTrashed();
+
+Route::get('/user/{user}/items/{item}', function (User $user, Item $item) {
+    return $item;
+})->scopeBindings();
 
 ```
 
