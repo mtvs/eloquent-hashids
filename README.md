@@ -114,7 +114,72 @@ or specify it specificly:
 `return $item->append('hashid')->toJson();`
 
 
-### Route Binding
+### Implicit Route Bindings
 
-When `HashidRouting` trait is used, base `getRouteKey()` and `resolveRouteBinding()`
-are overwritten to use hashids as route keys.
+If you want to resolve implicit route bindings for the model using its hahsid
+value you can use `HashidRouting` in the model.
+
+```php
+
+use Illuminate\Database\Eloquent\Model;
+use Mtvs\EloquentHashids\HasHashid;
+use Mtvs\EloquentHashids\HashidRouting;
+
+class Item extends Model
+{
+    use HasHashid, HashidRouting;
+}
+
+```
+It overwrites `getRouteKeyName()`, `getRouteKey()` and `resolveRouteBindingQuery()`
+to use the hashids as the route keys.
+
+It supports the Laravel's feature for customizing the key for specific routes.
+
+```php
+
+Route::get('/items/{item:slug}', function (Item $item) {
+    return $item;
+})
+
+```
+
+#### Customizing The Default Route Key Name
+
+If you want to by default resolve the implicit route bindings using another 
+field you can overwrite `getRouteKeyName()` to return the field's name to the
+resolving process and `getRouteKey()` to return its value in your links.
+
+```php
+
+use Illuminate\Database\Eloquent\Model;
+use Mtvs\EloquentHashids\HasHashid;
+use Mtvs\EloquentHashids\HashidRouting;
+
+class Item extends Model
+{
+    use HasHashid, HashidRouting;
+
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
+
+    public function getRouteKey()
+    {
+        return $this->slug;
+    }
+}
+
+```
+
+You'll still be able to specify the hashid for specific routes.
+
+```php
+
+Route::get('/items/{item:hashid}', function (Item $item) {
+    return $item;
+})
+
+```
+

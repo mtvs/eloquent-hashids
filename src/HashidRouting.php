@@ -11,6 +11,8 @@ trait HashidRouting
 	 */
 	public function resolveRouteBindingQuery($query, $value, $field = null)
 	{
+		$field = $field ?? $this->getRouteKeyName();
+
 		if (
 			$field && $field !== 'hashid' &&
 			// Check for qualified columns

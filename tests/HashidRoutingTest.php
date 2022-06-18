@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Mtvs\EloquentHashids\Tests\Models\Item;
+use Mtvs\EloquentHashids\Tests\Models\ItemWithCustomRouteKeyName;
 use Mtvs\EloquentHashids\Tests\Models\Comment;
 use Mtvs\EloquentHashids\Tests\Models\Vendor;
 use Vinkla\Hashids\Facades\Hashids;
@@ -27,6 +28,27 @@ class HashidRoutingTest extends TestCase
 		})->middleware(SubstituteBindings::class);
 
 		$this->get("/item/$hashid");
+	}
+
+	/** @test */
+	public function it_supports_custom_route_key_names()
+	{
+		$given = ItemWithCustomRouteKeyName::create(
+			factory(Item::class)->raw()
+		);
+
+		Route::get('/item/{item}', function (ItemWithCustomRouteKeyName $item) use ($given) {
+			$this->assertEquals($given->id, $item->id);
+		})->middleware(SubstituteBindings::class);
+
+		$this->get("/item/$given->slug");
+
+		Route::get('/admin/item/{item:hashid}', function (ItemWithCustomRouteKeyName $item) use ($given) {
+			$this->assertEquals($given->id, $item->id);
+		})->middleware(SubstituteBindings::class);
+
+		$this->get("/admin/item/$given->hashid");
+
 	}
 
 	/** @test */
