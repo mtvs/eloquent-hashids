@@ -5,7 +5,7 @@ namespace Mtvs\EloquentHashids\Tests;
 use Orchestra\Testbench\TestCase as Orchestra;
 use Vinkla\Hashids\HashidsServiceProvider;
 
-abstract class TestCase extends Orchestra 
+class TestCase extends Orchestra 
 {
 	protected function setUp(): void
     {
