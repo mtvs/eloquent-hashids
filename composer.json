@@ -1,34 +1,34 @@
 {
-    "name": "mtvs/eloquent-hashids",
-    "description": "On-the-fly hashids for Laravel Eloquent models.",
-    "type": "library",
-    "license": "MIT",
-    "authors": [
-        {
-            "name": "Mohammad Ali Tavassoli",
-            "email": "mtvs.dev@gmail.com"
-        }
-    ],
-    "require": {
-        "illuminate/database": "^8.0|^9.0|^10.0",
-        "vinkla/hashids": "^9.0|^10.0|^11.0"
-    },
-    "require-dev": {
-        "orchestra/testbench": "^6.0|^7.0|^8.0",
-        "phpunit/phpunit": "^8.4|^9.0|^10.0",
-        "laravel/legacy-factories": "^1.0"
-    },
-    "autoload": {
-        "psr-4": {
-            "Mtvs\\EloquentHashids\\": "src/"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "Mtvs\\EloquentHashids\\Tests\\": "tests/"
-        }
-    },
-    "scripts": {
-        "test": "phpunit"
+  "name": "mtvs/eloquent-hashids",
+  "description": "On-the-fly hashids for Laravel Eloquent models.",
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Mohammad Ali Tavassoli",
+      "email": "mtvs.dev@gmail.com"
     }
+  ],
+  "require": {
+    "illuminate/database": "^8.0|^9.0|^10.0|^11.0",
+    "vinkla/hashids": "^9.0|^10.0|^11.0|^12.0"
+  },
+  "require-dev": {
+    "orchestra/testbench": "^6.0|^7.0|^8.0|^9.0",
+    "laravel/legacy-factories": "^1.0",
+    "phpunit/phpunit": "^8.4|^9.0|^10.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Mtvs\\EloquentHashids\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Mtvs\\EloquentHashids\\Tests\\": "tests/"
+    }
+  },
+  "scripts": {
+    "test": "phpunit"
+  }
 }
