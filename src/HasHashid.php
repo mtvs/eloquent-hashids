@@ -32,8 +32,9 @@ trait HasHashid
 	 */
 	public function hashidToId($hashid)
 	{
-		return @Hashids::connection($this->getHashidsConnection())
-			->decode($hashid)[0];
+		$obConnection = $this->connection();
+
+        	return $this->useHex() ? $obConnection->decodeHex($hashid) : $obConnection->decode($hashid)[0];
 	}
 
 	/**
@@ -44,8 +45,9 @@ trait HasHashid
 	 */
 	public function idToHashid($id)
 	{
-		return @Hashids::connection($this->getHashidsConnection())
-			->encode($id);
+		$obConnection = $this->connection();
+
+        	return $this->useHex() ? $obConnection->encodeHex($id) : $obConnection->encode($id);
 	}
 
 	public function getHashidsConnection()
@@ -54,7 +56,23 @@ trait HasHashid
 	}
 
 	protected function getHashidAttribute()
-    {
-        return $this->hashid();
-    }
+    	{
+        	return $this->hashid();
+    	}
+
+	/**
+	 * @return bool
+	 */
+	public function useHex(): bool
+	{
+		return !is_numeric($this->getKey());
+	}
+
+	/**
+     	 * @return MainHashids
+     	 */
+    	protected function connection(): MainHashids
+	{
+		return @Hashids::connection($this->getHashidsConnection());
+    	}
 }
