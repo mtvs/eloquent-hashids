@@ -9,7 +9,7 @@ jobs:
     strategy:
       matrix:
         php: [7.3, 7.4, 8.0, 8.1, 8.2]
-        illuminate: [^8.0, ^9.0, ^10.0, ^11.0]
+        illuminate: [^8.0, ^9.0, ^10.0, ^11.0, ^12.0]
         exclude:
           - php: 7.3
             illuminate: ^9.0
@@ -29,6 +29,14 @@ jobs:
             illuminate: ^11.0
           - php: 8.1
             illuminate: ^11.0
+          - php: 7.3
+            illuminate: ^12.0
+          - php: 7.4
+            illuminate: ^12.0
+          - php: 8.0
+            illuminate: ^12.0
+          - php: 8.1
+            illuminate: ^12.0
 
 
     name: PHP ${{ matrix.php }} & Illuminate ${{ matrix.illuminate }}
